@@ -86,7 +86,7 @@ vim.cmd('set numberwidth=5')
 vim.cmd('syntax on')
 vim.cmd('filetype detect')
 vim.cmd('set showmatch')
-vim.cmd('set foldmethod=syntax')
+--vim.cmd('set foldmethod=syntax')
 
 -- indentation
 vim.bo.shiftwidth = 2
@@ -152,7 +152,8 @@ vim.keymap.set('s', '<a-;>', '<Esc>')
 -- cmds
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '',
-  command = '%s/\\s\\+$//e'
+  command = '%s/\\s\\+$//e',
+  desc = 'Remove espaços em branco no fim das linhas'
 })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -196,6 +197,10 @@ vim.api.nvim_create_user_command(
   end,
   {}
 )
+vim.api.nvim_create_user_command('RemoveDuplicateLines', '<line1>,<line2>sort u', {
+  range = '%',
+  desc = 'Remove linhas duplicadas'
+})
 --vim.api.nvim_create_autocmd('ToDecimal', {
 --  pattern = '',
 --  command = '%s/0x[0-9a-fA-F]\\+/\\=str2nr(submatch(0), 16)'
